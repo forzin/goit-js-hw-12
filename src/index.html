@@ -5,15 +5,34 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gallery</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./css/reset.css" />
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
 
     <main>
-      <load src="./partials/vite-promo.html" />
-      <load src="./partials/badges.html" />
+      <form class="form">
+        <input class="user-input" type="text" name="user_value" placeholder="Search images..."/>
+        <button class="button-search" type="submit">Search</button>
+      </form>
+      
+      <ul class="ul-gallery"></ul>
+  
+      <div class="button-load">
+        <button class="load-more-button is-hidden" type="submit">Load more</button>
+      </div>
+      
+      <div class="loader-container is-hidden">
+        <span class="loader"></span>
+      </div>
     </main>
 
-    <script type="module" src="main.js"></script>
+    <script type="module" src="./main.js" nonce="<your-nonce-value>" ></script>
+    
   </body>
 </html>
