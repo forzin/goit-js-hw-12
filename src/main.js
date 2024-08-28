@@ -28,6 +28,8 @@ const searchForm = async event => {
         searchValue = form.elements.user_value.value.trim();
 
         const response = await fetchPhotos(searchValue, currentPage);
+
+        currentPage = 1;
         
         if (searchValue === "") {
             iziToast.show({
@@ -68,6 +70,19 @@ const searchForm = async event => {
         lightbox.refresh();
         loader.classList.add(`is-hidden`);
         loadMoreButton.classList.remove(`is-hidden`);
+
+        if (gallery.children.length >= response.data.totalHits) {
+            loadMoreButton.classList.add(`is-hidden`);
+            iziToast.show({
+                message: "We're sorry, but you've reached the end of search results.",
+                backgroundColor: ' #4e75ff',
+                messageColor: '#fafafb',
+                messageSize: '16px',
+                messageLineHeight: '150%',
+                maxWidth: 432,
+                position: 'topRight',
+            });
+        }
 
     } catch (err) {
         iziToast.show({
@@ -112,23 +127,17 @@ const loadButton = async event => {
             behavior: 'smooth',   
         });
 
-        if (gallery.children.length === response.data.totalHits) {
-            loadMoreButton.classList.add(`is-hidden`);
-            iziToast.show({
-                message: "We're sorry, but you've reached the end of search results.",
-                backgroundColor: ' #4e75ff',
-                messageColor: '#fafafb',
-                messageSize: '16px',
-                messageLineHeight: '150%',
-                maxWidth: 432,
-                position: 'topRight',
-            });
-        }
-
-        console.log(response);
-
     } catch (err) {
-        console.log(err);
+        iziToast.show({
+            message: "An error occurred while fetching images. Please try again.",
+            backgroundColor: '#ef4040',
+            messageColor: '#fafafb',
+            messageSize: '16px',
+            messageLineHeight: '150%',
+            maxWidth: 432,
+            position: 'topRight',
+            iconUrl: `./img/icon-error.svg`,
+        });
     }
 }
 
