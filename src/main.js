@@ -71,7 +71,7 @@ const searchForm = async event => {
         loader.classList.add(`is-hidden`);
         loadMoreButton.classList.remove(`is-hidden`);
 
-        if (gallery.children.length >= response.data.totalHits) {
+        if (response.data.hits.length < 15) {
             loadMoreButton.classList.add(`is-hidden`);
             iziToast.show({
                 message: "We're sorry, but you've reached the end of search results.",
@@ -82,7 +82,10 @@ const searchForm = async event => {
                 maxWidth: 432,
                 position: 'topRight',
             });
+        } else {
+            loadMoreButton.classList.remove(`is-hidden`);
         }
+
 
     } catch (err) {
         iziToast.show({
@@ -138,6 +141,7 @@ const loadButton = async event => {
             position: 'topRight',
             iconUrl: `./img/icon-error.svg`,
         });
+        console.log(err);
     }
 }
 
