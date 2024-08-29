@@ -25,7 +25,7 @@ export const fetchPhotos = async (searchParams, page) => {
             messageLineHeight: '150%',
             maxWidth: 432,
             position: 'topRight',
-            iconUrl: `./img/icon-error.svg`,
+            iconUrl: iconError,
         });
     }
 };

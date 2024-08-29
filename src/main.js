@@ -7,6 +7,8 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import {createGalleryCard} from './js/render-functions';
 import {fetchPhotos} from './js/pixabay-api';
 
+import iconError from './img/icon-error.svg';
+
 let lightbox;
 
 let currentPage = 1;
@@ -26,10 +28,6 @@ const searchForm = async event => {
         event.preventDefault();
 
         searchValue = form.elements.user_value.value.trim();
-
-        const response = await fetchPhotos(searchValue, currentPage);
-
-        currentPage = 1;
         
         if (searchValue === "") {
             iziToast.show({
@@ -42,10 +40,14 @@ const searchForm = async event => {
                maxWidth: 432,
                 
                position: 'topRight',
-               iconUrl: `./img/icon-error.svg`,
+               iconUrl: iconError,
             });
             return; 
         }
+
+        currentPage = 1;
+
+        const response = await fetchPhotos(searchValue, currentPage);
 
         if (response.data.hits.length === 0) {
             iziToast.show({
@@ -59,7 +61,7 @@ const searchForm = async event => {
                 maxWidth: 432,
                 position: 'topRight',
 
-                iconUrl: `./img/icon-error.svg`,
+                iconUrl: iconError,
             });
             return;
         } 
@@ -96,7 +98,7 @@ const searchForm = async event => {
             messageLineHeight: '150%',
             maxWidth: 432,
             position: 'topRight',
-            iconUrl: `./img/icon-error.svg`,
+            iconUrl: iconError,
         });
         loader.classList.add(`is-hidden`);
         console.log(err);
@@ -139,7 +141,7 @@ const loadButton = async event => {
             messageLineHeight: '150%',
             maxWidth: 432,
             position: 'topRight',
-            iconUrl: `./img/icon-error.svg`,
+            iconUrl: iconError,
         });
         console.log(err);
     }
